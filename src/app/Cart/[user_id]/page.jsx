@@ -3,7 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import React,{ useState , useEffect } from 'react'
 
-function Cart({params}) {
+const Cart = ({params}) => {
 
   const [dataCarts , setdataCarts] = useState()
   const [dataProduct , setdataProduct] = useState()
