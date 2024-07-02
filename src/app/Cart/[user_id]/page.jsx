@@ -3,7 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import { useState , useEffect } from 'react'
 
-function cart({params}) {
+function Cart({params}) {
 
   const [dataCarts , setdataCarts] = useState()
   const [dataProduct , setdataProduct] = useState()
@@ -47,11 +47,11 @@ function cart({params}) {
           <p className='font-semibold text-2xl subpixel-antialiased flex justify-start my-6'>Shopping Carts</p>
             { dataCarts && dataCarts.length > 0 ? (
                   dataCarts.map((item)=>(
-                    <div className='divide-y divide-y-reverse'>
+                    <div key={item._id} className='divide-y divide-y-reverse'>
                       <p className='font-semibold text-md flex justify-end my-6'>{item.date}</p>
                       {item.products && item.products.length > 0 ? (
                         item.products.map((product)=>(
-                          <div className="card bg-base-100 my-2 rounded-none hover:bg-base-200 active:bg-base-200 focus:outline-none focus:ring focus:ring-base-200">
+                          <div key={product._id} className="card bg-base-100 my-2 rounded-none hover:bg-base-200 active:bg-base-200 focus:outline-none focus:ring focus:ring-base-200">
                             <div className="card-body">
                               <div className='grid grid-cols-6 items-center'>
                                 <div className='justify-start flex'>
@@ -72,7 +72,7 @@ function cart({params}) {
                                     <p className='font-semibold text-sm flex justify-end'>${relatedtoProduct(parseInt(product.productId)).price}</p>
                                   </div>
                                   <div className='flex justify-end'>
-                                     <input type="number" value={product.quantity} placeholder="Type here" className="input w-1/2 max-w-xs text-center" />
+                                     <input  type="number" defaultValue={product.quantity} placeholder="Type here" className="input w-1/2 max-w-xs text-center" />
                                     {/* <p className='font-semibold text-sm flex justify-end'>{product.quantity}</p> */}
                                   </div>
                                   <div className=''>
@@ -133,4 +133,4 @@ function cart({params}) {
   )
 }
 
-export default cart
+export default Cart
