@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import axios from 'axios'
-import { useState , useEffect } from 'react'
+import React,{ useState , useEffect } from 'react'
 
 function Cart({params}) {
 
