@@ -184,9 +184,9 @@ function Product({params}) {
                     <p className='font-bold text-2xl mb-6'>Reviews</p>
                     { Review && Review.length > 0 ? (
                       <div>
-                        {Review.map((item) => (
+                        {Review.map((item,index) => (
 
-                          <div className="chat chat-start">
+                          <div key={index} className="chat chat-start">
                               <div className="chat-image avatar">
                                 <div className="w-10 rounded-full">
                                   <Image width={50} height={50}  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
