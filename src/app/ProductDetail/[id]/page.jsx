@@ -77,7 +77,7 @@ function Product({params}) {
                         alt={Product.title}
                         />
                       </div> 
-                      <div id="item2" className="carousel-item w-full flex justify-center">
+                      {/* <div id="item2" className="carousel-item w-full flex justify-center">
                       <Image
                         className='p-4'
                         src={Product.image} 
@@ -106,7 +106,7 @@ function Product({params}) {
                         alt={Product.title}
 
                         />
-                      </div>
+                      </div> */}
                     </div> 
                       <div className="flex justify-center w-full py-2 gap-2">
                         <a href="#item1" className="btn btn-xs">1</a> 
