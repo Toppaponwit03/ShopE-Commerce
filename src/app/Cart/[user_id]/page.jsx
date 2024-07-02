@@ -40,12 +40,12 @@ const Cartproduct = ({params}) => {
         <div className="grid flex-grow card w-full place-items-stretch">
           <p className='font-semibold text-2xl subpixel-antialiased flex justify-start my-6'>Shopping Carts</p>
             { dataCarts && dataCarts.length > 0 ? (
-                  dataCarts.map((item)=>(
-                    <div key={item._id} className='divide-y divide-y-reverse'>
+                  dataCarts.map((item,i)=>(
+                    <div key={i} className='divide-y divide-y-reverse'>
                       <p className='font-semibold text-md flex justify-end my-6'>{item.date}</p>
                       {item.products && item.products.length > 0 ? (
-                        item.products.map((product)=>(
-                          <div key={product._id} className="card bg-base-100 my-2 rounded-none hover:bg-base-200 active:bg-base-200 focus:outline-none focus:ring focus:ring-base-200">
+                        item.products.map((product,i)=>(
+                          <div key={i} className="card bg-base-100 my-2 rounded-none hover:bg-base-200 active:bg-base-200 focus:outline-none focus:ring focus:ring-base-200">
                             <div className="card-body">
                               <div className='grid grid-cols-6 items-center'>
                                 <div className='justify-start flex'>
