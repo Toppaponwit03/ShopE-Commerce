@@ -14,7 +14,6 @@ import Image from 'next/image'
 
 
 const fetchDatafromPage = async (page,perpage,filter,func) =>{
-  console.log(page,perpage,filter,func);
   try{
     const response = await axios.get('/api/FakeStoreApi',{
       params : {
@@ -32,7 +31,6 @@ const fetchDatafromPage = async (page,perpage,filter,func) =>{
         filter : JSON.stringify(filter)
       }
     })
-    console.log(response,countData);
     return [response , countData]
   }catch(error){
     console.log(error);
@@ -141,7 +139,6 @@ export default  function Home({searchParams}) {
     setdata(getData[0].data.getData)
     settotalPage(Math.ceil(getData[1].data.count / perpage))
 
-    console.log(Filters);
   }
  
    const contentCreateProduct = (
@@ -179,7 +176,7 @@ export default  function Home({searchParams}) {
             <option disabled defaultValue>Select Category</option>
             {category && category.length > 0 ? (
               category.map((item ,i)=>(
-                <option value={item} >{i+1}. {item}</option>
+                <option key={i} value={item} >{i+1}. {item}</option>
               ))
             ) : (
               ''
@@ -191,7 +188,7 @@ export default  function Home({searchParams}) {
             <option disabled defaultValue>Select Shipping</option>
             {typeShipping && typeShipping.length > 0 ? (
               typeShipping.map((item ,i)=>(
-                <option value={item} >{i+1}. {item}</option>
+                <option key={i} value={item} >{i+1}. {item}</option>
               ))
             ) : (
               ''
@@ -314,8 +311,6 @@ export default  function Home({searchParams}) {
   const priceStart = document.getElementById('priceStart').value
   const priceEnd = document.getElementById('priceEnd').value
 
-  console.log(filterrating);
-       
   const querys = []
 
                         let allEmptycheckedIds = checkedIds.every(item => item === "");
@@ -361,9 +356,6 @@ export default  function Home({searchParams}) {
                         }
 
                         let finalQuery = querys.length > 1 ? { $and: querys } : querys[0] || {};
-
-
-                        console.log("querys" , finalQuery);
 
                         dataFilter(finalQuery)
                         if(true){
@@ -413,7 +405,6 @@ async function getDataSort(func){
           func : 'ListCategory'
         }
       }).then((res)=>{
-        console.log("data is",res.data);
         secategory(res.data);
       }).catch((err)=>{
         console.log(err);
@@ -427,19 +418,19 @@ async function getDataSort(func){
     <div>
 
 
-{/* drawing filter */}
-<div className="drawer drawer-end z-50">
-    <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-    <div className="drawer-content">
+    {/* drawing filter */}
+    <div className="drawer drawer-end z-50">
+        <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content">
 
+        </div>
+        <div className="drawer-side">
+          <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
+          <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+            {contentCreateFilter}
+          </div>
+        </div>
     </div>
-    <div className="drawer-side">
-      <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-      <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-        {contentCreateFilter}
-      </div>
-    </div>
-</div>
 
     <Modal content={contentCreateProduct} title="Add Product"/>
       {/* contents */}
@@ -462,8 +453,8 @@ async function getDataSort(func){
               <label htmlFor="my-drawer-4" className="lg:hidden xl:hidden  drawer-button btn btn-primary btn-sm">Filter</label>
               <ul className="menu hidden md:hidden lg:menu-horizontal lg:flex xl:block xl:flex rounded-box gap-1">
                   {OrderBy && OrderBy.length > 0 ? (
-                      OrderBy.map((item)=>(
-                        <span onClick={()=>{getDataSort(item.txtEng)}
+                      OrderBy.map((item,i)=>(
+                        <span key={i} onClick={()=>{getDataSort(item.txtEng)}
                         }>
                           <Btncategory 
                             key={item.name} // Ensure each item has a unique key
@@ -498,36 +489,36 @@ async function getDataSort(func){
 
 
         {(data && data.length > 0) ? (
-          <div className="grid  grid-cols-2 md:grid-cols-3 lg:frid-cols-4 xl:grid-cols-5 gap-4 p-5 ">
+            <div className="grid  grid-cols-2 md:grid-cols-3 lg:frid-cols-4 xl:grid-cols-5 gap-4 p-5 ">
 
-            {data.map((product) => (
+              {data.map((product,i) => (
 
-                <CARDPRODUCT 
-                  key={product.id}
-                  id={product.id}
-                  img={product.image}
-                  title={product.title} 
-                  subtitle = {product.price}
-                  description={product.description} 
-                  rating={product.rating ? product.rating.rate : ''}
-                  count={product.rating ? product.rating.count : ''}
-                  action="Buy now"
-                  link = {`/ProductDetail/${product._id}`}
-                  tag = {product.typeShipping} 
-                 />
+                  <CARDPRODUCT 
+                    key={i}
+                    id={product.id}
+                    img={product.image}
+                    title={product.title} 
+                    subtitle = {product.price}
+                    description={product.description} 
+                    rating={product.rating ? product.rating.rate : ''}
+                    count={product.rating ? product.rating.count : ''}
+                    action="Buy now"
+                    link = {`/ProductDetail/${product._id}`}
+                    tag = {product.typeShipping} 
+                  />
 
-            ))}
-          
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 xl:grid-cols-5 gap-4 p-5 ">
-            <CardProductSkeleton/>
-            <CardProductSkeleton/>
-            <CardProductSkeleton/>
-            <CardProductSkeleton/>
-            <CardProductSkeleton/>
-          </div>
-        )
+              ))}
+            
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 xl:grid-cols-5 gap-4 p-5 ">
+              <CardProductSkeleton/>
+              <CardProductSkeleton/>
+              <CardProductSkeleton/>
+              <CardProductSkeleton/>
+              <CardProductSkeleton/>
+            </div>
+          )
         }
 
 

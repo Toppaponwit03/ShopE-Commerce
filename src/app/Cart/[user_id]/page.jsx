@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import axios from 'axios'
-import React,{ useState , useEffect } from 'react'
+import { useState , useEffect } from 'react'
 
 const Cartproduct = ({params}) => {
 
@@ -23,10 +23,6 @@ const Cartproduct = ({params}) => {
       setdataCarts(res.data.responseCarts)
       setdataProduct(res.data.responseAll)
 
-      // let t = res.data.responseAll.filter(e=>e.product.productId === res.data.responseCarts.id)
-
-      // res.data.responseCarts.filter(e=>e.product.productId === res.data.responseAll.id)
-      console.log(res);
     }).catch((err)=>{
 
     })
@@ -36,8 +32,6 @@ const Cartproduct = ({params}) => {
   useEffect(()=>{
     getCarts(params.user_id)
 
-    // console.log();
-    
   },[])
 
   return (

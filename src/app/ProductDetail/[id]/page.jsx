@@ -19,9 +19,7 @@ function Product({params}) {
         func : 'firstProduct'
       }
     }).then((res)=>{
-      console.log("firstProduct" ,res.data);
       setProduct(res.data[0]);
-  
     }).catch((err)=>{
   
     })
@@ -35,8 +33,6 @@ function Product({params}) {
       }
     }).then( (res)=>{
       setReview(res.data.reviews);
-      console.log("review",res.data);
-    
     }).catch((err)=>{
   
     })
@@ -78,6 +74,7 @@ function Product({params}) {
                         src={Product.image} 
                         width={300} 
                         height={100} 
+                        alt={Product.title}
                         />
                       </div> 
                       <div id="item2" className="carousel-item w-full flex justify-center">
@@ -86,6 +83,8 @@ function Product({params}) {
                         src={Product.image} 
                         width={300} 
                         height={100}
+                        alt={Product.title}
+
                         />
                       </div> 
                       <div id="item3" className="carousel-item w-full flex justify-center">
@@ -94,6 +93,8 @@ function Product({params}) {
                         src={Product.image} 
                         width={300} // Set width (optional, specify as per your design)
                         height={100} 
+                        alt={Product.title}
+
                         />
                       </div> 
                       <div id="item4" className="carousel-item w-full flex justify-center">
@@ -102,6 +103,8 @@ function Product({params}) {
                         src={Product.image} 
                         width={300} // Set width (optional, specify as per your design)
                         height={100} 
+                        alt={Product.title}
+
                         />
                       </div>
                     </div> 
@@ -124,11 +127,11 @@ function Product({params}) {
                             {Product.rating ? (
                               <div>
                                 <div className="rating">
-                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked={Product.rating.rate >= 1 ? true : false} />
-                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked={Product.rating.rate >= 2 ? true : false}  />
-                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked={Product.rating.rate >= 3 ? true : false}  />
-                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked={Product.rating.rate >= 4 ? true : false} />
-                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked={Product.rating.rate >= 5 ? true : false} />
+                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" defaultChecked={Product.rating.rate >= 1 ? true : false} />
+                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" defaultChecked={Product.rating.rate >= 2 ? true : false}  />
+                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" defaultChecked={Product.rating.rate >= 3 ? true : false}  />
+                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" defaultChecked={Product.rating.rate >= 4 ? true : false} />
+                                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" defaultChecked={Product.rating.rate >= 5 ? true : false} />
                                 </div>
                                 <label className="text-sm font-semibold">( {Product.rating.rate} )</label>
                               </div>
@@ -193,11 +196,11 @@ function Product({params}) {
                                 <p className='font-semibold text-sm'>{item.reviewerName}</p>
                                 <div className="flex gap-4 mb-2">
                                   <div className="rating">
-                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" checked={item.rating >= 1 ? true : false}  />
-                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" checked={item.rating >= 2 ? true : false}   />
-                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" checked={item.rating >= 3 ? true : false}   />
-                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" checked={item.rating >= 4 ? true : false}  />
-                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" checked={item.rating >= 5 ? true : false}  />
+                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" defaultChecked={item.rating >= 1 ? true : false}  />
+                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" defaultChecked={item.rating >= 2 ? true : false}   />
+                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" defaultChecked={item.rating >= 3 ? true : false}   />
+                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" defaultChecked={item.rating >= 4 ? true : false}  />
+                                    <input type="radio" name={item.id} className="mask mask-star-2 bg-orange-400" defaultChecked={item.rating >= 5 ? true : false}  />
                                   </div>
                                   <label className="text-sm font-semibold">( {item.rating} )</label>
                                 </div>
@@ -242,10 +245,10 @@ function Product({params}) {
                       <button className="btn btn-sm my-2 me-2">View more</button>
                     </div>
                     {topFour && topFour.length > 0 ? (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                          {topFour.map((product) => (
+                      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                          {topFour.map((product,index) => (
                               <CARDPRODUCT 
-                                key={product.id}
+                                key={index}
                                 img={product.image}
                                 title={product.title} 
                                 subtitle = {product.price}
@@ -254,6 +257,7 @@ function Product({params}) {
                                 count={product.rating.count}
                                 action="Buy now"
                                 link = {`/ProductDetail/${product.id}`}
+                                 
                               />
 
                           ))}

@@ -15,6 +15,7 @@ function cardProduct( {id,link,img ,title ,subtitle , description , action , rat
                     width={800}
                     height={800} 
                     alt={title}
+                    priority
                 />
                 </figure>
               <div className="card-body min-h-36 max-h-52 ">
