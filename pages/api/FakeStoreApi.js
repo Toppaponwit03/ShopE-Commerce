@@ -50,7 +50,7 @@ export default async function handler(req,res){
                 else if(func == 'getCartByUser'){ // topFive Product
                     await connectMongoDB()
                     const {user_id} = req.query
-                    let dataCarts = await Carts.find({'id' : parseInt(user_id)})
+                    let dataCarts = await Carts.find({'userId' : parseInt(user_id)})
                     let dataAll = await Products.find({})
                     res.status(200).json({responseCarts : dataCarts ,responseAll :dataAll})
                 } 
@@ -142,8 +142,7 @@ export default async function handler(req,res){
 
         case 'POST' : 
              try{
-                const {func} = await req.query
-                console.log("func",func);
+                const {func,id} = await req.query
                 if(func == 'addProduct'){
                     const data = req.body
                    await connectMongoDB()
@@ -151,7 +150,29 @@ export default async function handler(req,res){
                    return res.status(200).json({data : data ,message : 'success' , status : 200})
                 // return NextResponse.json({ message: "Post created"}, { status: 201 })
                 }
+                else if(func == 'addToCart'){
 
+                    const newCart = {
+                        productId: id,
+                        quantity: 1
+                      };
+                    await connectMongoDB()
+                    await Carts.updateOne(
+                        { userId: 1 }, // Filter to find the correct cart
+                        { $push: { products: newCart } } // Update operation
+                      )
+                   return res.status(200).json({data : newCart ,message : 'success' , status : 200})
+
+                }
+
+            }catch(error){
+                console.log(error);
+            }
+
+        case 'PUT' :
+            try{
+                const {func} = await req.query
+                //
             }catch(error){
                 console.log(error);
             }

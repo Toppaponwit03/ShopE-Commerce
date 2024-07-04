@@ -49,6 +49,30 @@ function Product({params}) {
     })
   }
 
+
+  async function addToCart(){
+    var options = {
+      method : 'POST',
+      url: '/api/FakeStoreApi',
+      params : {
+        id : params.id,
+        func : 'addToCart'
+      },
+      headers: {
+        Accept: '*/*',
+        'Content-Type': 'application/json'
+      },
+
+    }
+
+
+    axios.request(options).then((res)=>{
+      console.log(res);
+    }).catch((err)=>{
+      console.log(err);
+    })
+  } 
+
   useEffect(()=>{
 
     getProduct(params.id)
@@ -174,7 +198,7 @@ function Product({params}) {
 
                         <input type="number" placeholder="Type here" className="input input-bordered mb-2" />
                         <div className="flex gap-2">
-                          <button className="btn btn-primary btn-sm">Add to cart</button>
+                          <button className="btn btn-primary btn-sm" onClick={addToCart}>Add to cart</button>
                           <button className="btn btn-success btn-sm">Buy now</button>
                         </div>
 
@@ -258,7 +282,7 @@ function Product({params}) {
                                 rating={product.rating.rate}
                                 count={product.rating.count}
                                 action="Buy now"
-                                link = {`/ProductDetail/${product.id}`}
+                                link = {`/ProductDetail/${product._id}`}
                                  
                               />
 

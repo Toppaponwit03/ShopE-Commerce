@@ -196,6 +196,11 @@ export default  function Home({searchParams}) {
           </select>
         </div>
 
+          <div className="grid grid-cols-1">
+              <span className="label-text font-semibold my-2">Shipping Rate :</span>
+              <input type="text" name="shippngrate" className="input input-bordered input-sm w-full max-w-xs" placeholder="Search" onChange={handleInputChange}/>
+          </div>
+
         <button className="btn btn-success btn-sm mt-2 text-base-100" onClick={AddProduct}>Add Product</button>
 
       </div>
