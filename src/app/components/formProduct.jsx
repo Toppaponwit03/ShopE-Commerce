@@ -3,12 +3,7 @@ import React,{ useState } from 'react'
 import axios from 'axios'
 import Image from 'next/image';
 
-
-
-
-
-
-function formProduct({category,typeShipping ,dataProduct}) {
+function FormProduct({category,typeShipping ,dataProduct}) {
     const [imgPreview ,setImgPreview] = useState()
     const [formData , setFormData] = useState({ 
         title : '',
@@ -129,4 +124,4 @@ function formProduct({category,typeShipping ,dataProduct}) {
   )
 }
 
-export default formProduct
+export default FormProduct
