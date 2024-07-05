@@ -1,11 +1,41 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import axios from 'axios'
+import FormProduct from './formProduct'
 
-function cardProduct( {id,link,img ,title ,subtitle , description , action , rating , count ,tag} ) {
+
+
+// const showModalContent = (params) =>{
+//   const modal = document.getElementById('my_modal_4');
+//   modal.showModal();
+//   console.log("params" , params);
+  
+// }
+
+async function DeleteProduct(id){
+  var option = {
+    url : '/api/FakeStoreApi',
+    method : 'DELETE',
+    params : {
+      func : 'DeleteProduct',
+      id : id
+    }
+  }
+
+  axios.request(option).then((res)=>{
+    console.log(res);
+
+  }).catch((err)=>{
+    console.log("connot delete now !");
+  })
+ }
+
+function cardProduct( {id,link,img ,title ,subtitle , description , action , rating , count ,tag,edit } ) {
   return (
     <div>
-        <div className="card h-full bg-base-100 p-2 border-solid border-2 border-base-200 rounded-none">
+      
+        <div className="card h-full bg-base-100 p-2 border-solid border-2 border-base-200 rounded-box">
          <Link href={link}>
               <figure className='min-h-52 max-h-52 '>
                 {tag ? (
@@ -43,8 +73,8 @@ function cardProduct( {id,link,img ,title ,subtitle , description , action , rat
               </div>
           </Link>
             <div className="card-fotter bg-base-200 flex justify-center gap-1">
-                <button className="btn btn-xs btn-warning">Edit</button>
-                <button className="btn btn-xs btn-error">delete</button>
+                <button className="btn btn-xs btn-warning" onClick={edit}>Edit</button>
+                <button className="btn btn-xs btn-error" onClick={()=>DeleteProduct(id)}><i className="fa-solid fa-trash-can"></i></button>
 
             </div>
         </div>

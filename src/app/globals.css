@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 
-/* HTML: <div class="ribbon">Your text content</div> */
+/* HTML: <div className="ribbon">Your text content</div> */
 .ribbon {
     font-size: 10px;
     font-weight: bold;
@@ -27,6 +27,110 @@
         0 calc(50% - var(--f)/2));
   }
 
+
+
+
+  .new-version {
+    position: fixed;
+    bottom: 20px;
+ }
+  .new-version a {
+    color: #2bd156;
+    text-decoration: none;
+ }
+  *, *:before, *:after {
+    box-sizing: border-box;
+ }
+  .page-wrapper {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+  .page-wrapper button {
+
+    position: relative;
+
+ }
+  .page-wrapper button .cart-item {
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    top: -10px;
+    right: -10px;
+ }
+  .page-wrapper button .cart-item:before {
+    content: '1';
+    display: block;
+    line-height: 24px;
+    height: 24px;
+    width: 24px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #750e48;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+ }
+  .page-wrapper button.sendtocart .cart-item {
+    display: block;
+    animation: xAxis 1.01s forwards cubic-bezier(1, 0.44, 1, 0.100);
+ }
+  .page-wrapper button.sendtocart .cart-item:before {
+    animation: yAxis 1s alternate forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+ }
+  .cart {
+    /* position: fixed; */
+    /* top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: #292d48;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px; */
+    display: flex;
+    /* background: #292d48; */
+
+ }
+  .cart i {
+    font-size: 25px;
+    color: white;
+ }
+  .cart:before {
+    content: attr(data-totalitems);
+ }
+  .cart.shake {
+    animation: shakeCart 0.4s ease-in-out forwards;
+ }
+  @keyframes xAxis {
+    100% {
+      transform: translateX(calc(70vw - 100px));
+      
+   }
+ }
+  @keyframes yAxis {
+    100% {
+      transform: translateY(calc(-95vh + 100px));
+   }
+ }
+  @keyframes shakeCart {
+    25% {
+      transform: translateX(6px);
+   }
+    50% {
+      transform: translateX(-4px);
+   }
+    75% {
+      transform: translateX(2px);
+   }
+    100% {
+      transform: translateX(0);
+   }
+ }
+  
+  
 
 
 

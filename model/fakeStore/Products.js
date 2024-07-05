@@ -8,7 +8,8 @@ const postschema = new Schema(
         category: String,
         image: String,
         category : String,
-        typeShipping : String
+        typeShipping : String,
+        shippngrate:String
     },
     {
         timestamps : true

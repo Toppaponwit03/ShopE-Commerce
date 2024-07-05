@@ -51,6 +51,9 @@ function Product({params}) {
 
 
   async function addToCart(){
+
+
+
     var options = {
       method : 'POST',
       url: '/api/FakeStoreApi',
@@ -68,10 +71,36 @@ function Product({params}) {
 
     axios.request(options).then((res)=>{
       console.log(res);
+
+      // Animation Add to Cart
+      var button = document.getElementById('addtocart');
+      var cart = document.getElementById('cart');
+      var cartTotal = cart.getAttribute('data-totalitems');
+      var newCartTotal = parseInt(cartTotal) + 1;
+      
+      button.classList.add('sendtocart');
+      setTimeout(function() {
+        button.classList.remove('sendtocart');
+        cart.classList.add('shake');
+        cart.setAttribute('data-totalitems', newCartTotal);
+        
+        setTimeout(function() {
+          cart.classList.remove('shake');
+        }, 500);
+      }, 1000);
     }).catch((err)=>{
       console.log(err);
     })
   } 
+
+
+
+
+
+
+ 
+
+  
 
   useEffect(()=>{
 
@@ -82,6 +111,11 @@ function Product({params}) {
   },[])
   return (
     <div>
+
+
+
+
+      
         {Product ? (
         <div>
             <div className="card bg-base-100 shadow-xl m-4">
@@ -198,8 +232,11 @@ function Product({params}) {
 
                         <input type="number" placeholder="Type here" className="input input-bordered mb-2" />
                         <div className="flex gap-2">
-                          <button className="btn btn-primary btn-sm" onClick={addToCart}>Add to cart</button>
-                          <button className="btn btn-success btn-sm">Buy now</button>
+                          <div className="page-wrapper">
+                              <button id="addtocart" className="btn btn-primary btn-sm" onClick={addToCart}>Add to cart <i className="fa-solid fa-cart-plus"></i> <span className="cart-item"></span></button>
+                          </div>
+                          
+                          <button className="btn btn-success btn-sm">Buy now <i className="fa-solid fa-money-bill"></i></button>
                         </div>
 
                     </div>
@@ -242,7 +279,7 @@ function Product({params}) {
                         
                         ))}
                         <div className='flex justify-center mt-4'>
-                          <button className="btn btn-sm">View more</button>
+                          <button className="btn btn-sm">View more </button>
                         </div>
 
                       </div>
@@ -268,7 +305,7 @@ function Product({params}) {
               <div>
                   <p className='font-bold text-2xl mb-6'>Product </p>
                       <div className='flex justify-end mt-4'>
-                      <button className="btn btn-sm my-2 me-2">View more</button>
+                      <button className="btn btn-sm my-2 me-2">View more <i className="fa-solid fa-arrow-right-long"></i></button>
                     </div>
                     {topFour && topFour.length > 0 ? (
                       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">

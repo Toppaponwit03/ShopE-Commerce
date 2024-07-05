@@ -158,7 +158,7 @@ export default async function handler(req,res){
                       };
                     await connectMongoDB()
                     await Carts.updateOne(
-                        { userId: 1 }, // Filter to find the correct cart
+                        { userId: 2 }, // Filter to find the correct cart
                         { $push: { products: newCart } } // Update operation
                       )
                    return res.status(200).json({data : newCart ,message : 'success' , status : 200})
@@ -171,12 +171,62 @@ export default async function handler(req,res){
 
         case 'PUT' :
             try{
-                const {func} = await req.query
+                const {func , id} = await req.query
+                const {title,price,description,category,image,typeShipping,shippngrate} = await req.body.formData
+                if(func == 'updateProduct'){
+                    await connectMongoDB()
+                    await Products.updateOne(
+                        {
+                            _id : id
+                        },
+                        {
+                            $set : {
+                                title : title,
+                                price : price,
+                                description : description,
+                                category : category,
+                                image : image,
+                                typeShipping:typeShipping,
+                                shippngrate : shippngrate
+                            }
+                        }
+                    )
+
+                    return res.status(200).json({message : 'update Sucessfully'})
+                }
                 //
             }catch(error){
                 console.log(error);
             }
         break;
+
+        case 'DELETE' : 
+            try {
+                const {func , id} = await req.query
+                if(func == 'DeleteProduct'){
+                   await connectMongoDB()
+                   await Products.deleteOne({_id : id})
+                   let data = await Products.find({})
+                   return res.status(200).json({message : 'delete successfully' , data : data})
+                }
+                else if(func == 'DeleteProductFromCart'){
+
+                    const newCart = {
+                        productId: id,
+                        quantity: 1
+                      };
+                    await connectMongoDB()
+                    await Carts.updateOne(
+                        { userId: 2 }, // Filter to find the correct cart
+                        { $pull: { products: newCart } } // Update operation
+                      )
+                   return res.status(200).json({data : newCart ,message : 'success' , status : 200})
+
+                }
+
+            }catch(error){
+                console.log(error);
+            }
 
         default:
             res.setHeader('Allow', ['GET','POST']);

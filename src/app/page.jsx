@@ -11,7 +11,7 @@ import axios from 'axios';
 import { stringify } from 'postcss'
 import Link from 'next/link'
 import Image from 'next/image'
-
+import FormProduct from './components/formProduct'
 
 const fetchDatafromPage = async (page,perpage,filter,func) =>{
   try{
@@ -45,19 +45,9 @@ export default  function Home({searchParams}) {
   const [Filters, dataFilter] = useState();
   const [typeShipping , setTypeShipping] = useState()
   const [OrderBy , setOrderBy] = useState()
-  const [formData , setFormData] = useState({ 
-    title : '',
-    price : '',
-    description : '',
-    category : '',
-    image : '',
-    category : '',
-    typeShipping : ''
 
+  const [datafirstProduct , setFirstproduct] = useState()
 
-  })
-
-  const [imgPreview ,setImgPreview] = useState()
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -68,41 +58,17 @@ export default  function Home({searchParams}) {
     setIsModalOpen(false);
   };
 
+  async function firstProduct(id){
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+     const data = await axios.get('/api/FakeStoreApi',{
+      params :{
+        id : id,
+        func : 'firstProduct'
+      }
+    })
 
-    if(name == 'image'){
-      setImgPreview(value)
-    }
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  async function AddProduct(){
-    const dataForm = formData
-    var options = {
-      method: 'POST',
-      url: '/api/FakeStoreApi',
-      params: {func: 'addProduct'},
-      headers: {
-        Accept: '*/*',
-        'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-        'Content-Type': 'application/json'
-      },
-      data: dataForm
-    };
-
-    axios.request(options).then(function (response) {
-      alert('Add Product is Successfully !')
-      
-    }).catch(function (error) {
-      console.error(error);
-    });
+    return data
   }
-
 
   async function getTypeShipping(){
 
@@ -140,83 +106,38 @@ export default  function Home({searchParams}) {
     settotalPage(Math.ceil(getData[1].data.count / perpage))
 
   }
+
+ const showModalContent = async (params) =>{
+    const modal = document.getElementById('my_modal_4');
+    modal.showModal();
+
+     const data = await firstProduct(params).then((res)=>{
+      console.log(res.data);
+      setFirstproduct(res.data)
+    }).catch((err)=>{
+      console.log(err);
+    })
+}
+const contentCreateProduct = (
+ <>
+   <FormProduct 
+   category = {category}
+   typeShipping = {typeShipping}
+  dataProduct = {datafirstProduct}
+   />
+ </>
+)
  
-   const contentCreateProduct = (
-    <>
-    <div className="grid grid-cols-2 place-items-center">
-      <div className='text-center'>
-          <div className='flex justify-center'>
-              <Image src={imgPreview} className='w-1/2' width={100} height={100} />
-          </div>
-          <div className='mt-2'>
-          <span className="label-text font-semibold">URL : </span>
-          <input type="text" name="image" className="input input-bordered input-sm w-full max-w-xs" onChange={handleInputChange} />
-        </div>
-      </div>
-      <div className='gird grid-cols-1'>
-
-          <div className="grid grid-cols-1">
-            <span className="label-text font-semibold my-2">Title :</span>
-            <input type="text" name="title" className="input input-bordered input-sm w-full max-w-xs" placeholder="Search" onChange={handleInputChange}/>
-          </div>
-
-          <div className="grid grid-cols-1">
-              <span className="label-text font-semibold my-2">Price :</span>
-              <input type="text" name="price" className="input input-bordered input-sm w-full max-w-xs" placeholder="Search" onChange={handleInputChange}/>
-          </div>
-
-        <div className="grid grid-cols-1">
-          <span className="label-text font-semibold my-2">Description :</span>
-          <input type="text" name="description" className="input input-bordered input-sm w-full max-w-xs" placeholder="Search" onChange={handleInputChange}/>
-        </div>
-
-        <div className="label-text font-semibold my-2">Category / Shipping</div>
-        <div className="flex flex-cols-2 gap-2">
-          <select className="select select-bordered select-sm  w-full max-w-xs" name="category" onChange={handleInputChange}>
-            <option disabled defaultValue>Select Category</option>
-            {category && category.length > 0 ? (
-              category.map((item ,i)=>(
-                <option key={i} value={item} >{i+1}. {item}</option>
-              ))
-            ) : (
-              ''
-            )}
-          </select>
-
-          {/* <div className="label-text font-semibold">Shipping</div> */}
-          <select className="select select-bordered  select-sm w-full max-w-xs" name="typeShipping" onChange={handleInputChange}>
-            <option disabled defaultValue>Select Shipping</option>
-            {typeShipping && typeShipping.length > 0 ? (
-              typeShipping.map((item ,i)=>(
-                <option key={i} value={item} >{i+1}. {item}</option>
-              ))
-            ) : (
-              ''
-            )}
-          </select>
-        </div>
-
-          <div className="grid grid-cols-1">
-              <span className="label-text font-semibold my-2">Shipping Rate :</span>
-              <input type="text" name="shippngrate" className="input input-bordered input-sm w-full max-w-xs" placeholder="Search" onChange={handleInputChange}/>
-          </div>
-
-        <button className="btn btn-success btn-sm mt-2 text-base-100" onClick={AddProduct}>Add Product</button>
-
-      </div>
-    </div>
-    </>
-   )
 
    const contentCreateFilter = (
     <>
-      <p className='text-md font-semibold mt-2'>Filter</p>
+      {/* <p className='text-md font-semibold mt-2'>Filter</p> */}
 
       {/* menu */}
       <ul className="menu w-56">
         <li>
           <details open>
-            <summary className='font-semibold'>Category</summary>
+            <summary className='font-semibold'><i class="fa-solid fa-layer-group"></i> Category</summary>
             <ul>
               {/* <li onClick={ClearInput}><a> <input type="checkbox" className="checkbox checkbox-sm" /> All</a></li> */}
               {category && category.length > 0 ? (
@@ -231,7 +152,7 @@ export default  function Home({searchParams}) {
         </li>
         <li>
           <details open>
-            <summary className='font-semibold'>Shipping</summary>
+            <summary className='font-semibold'><i class="fa-solid fa-truck-fast"></i> Shipping</summary>
             <ul>
               {typeShipping && typeShipping.length > 0 ? (
                 typeShipping.map((item,index)=>(
@@ -244,7 +165,7 @@ export default  function Home({searchParams}) {
           </details>
         </li>
         <li>
-          <a className='font-semibold'>Rating</a>
+          <a className='font-semibold'><i class="fa-solid fa-star"></i> Rating</a>
           <div className="rating">
             <input hidden type="radio" name="rating-2" id="ratingDefault" className="mask mask-star-2 bg-orange-400 rating-check" defaultChecked />
             <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400 rating-check" id="1" onClick={getFilter} />
@@ -260,12 +181,12 @@ export default  function Home({searchParams}) {
       <p className='font-semibold text-sm mb-4'>Price</p>
       <div className=''>
         <p>From</p>
-        <label className="input input-bordered flex items-center gap-2 mb-2">
-          <input type="number" id="priceStart" className="grow input-sm" placeholder="From" />
+        <label className="">
+          <input type="number" id="priceStart" className="py-2 text-end text-sm  w-full max-w-xs bg-transparent border-b border-slate-950 focus:outline-none focus:border-slate-950" placeholder="From" />
         </label>
-        <p>To</p>
-        <label className="input input-bordered flex items-center gap-2">
-          <input type="number" id="priceEnd" className="grow input-sm" placeholder="To" />
+        <p className='mt-6'>To</p>
+        <label className="">
+          <input type="number" id="priceEnd" className="py-2 text-end text-sm  w-full max-w-xs bg-transparent border-b border-slate-950 focus:outline-none focus:border-slate-950" placeholder="To" />
         </label>
         <div className="flex justify-center mt-2 gap-2">
           <button className="btn btn-success btn-sm text-base-100" onClick={getFilter}>Search Price</button>
@@ -431,7 +352,7 @@ async function getDataSort(func){
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-          <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+          <div className="menu bg-slate-200 text-base-content min-h-full w-80 p-4">
             {contentCreateFilter}
           </div>
         </div>
@@ -440,11 +361,13 @@ async function getDataSort(func){
     <Modal content={contentCreateProduct} title="Add Product"/>
       {/* contents */}
       <div className="flex flex-col lg:flex-row">
-        <div className="w-1/4 hidden md:hidden lg:block xl:block px-4 bg-base-200 ">
+        <div className="w-1/4 hidden md:hidden lg:block xl:block px-4 bg-slate-200">
             {contentCreateFilter}
         </div> 
         {/* <div className="divider lg:divider-horizontal"></div>  */}
         <div className=" place-items-center w-full">
+
+          {/* Thumnails */}
 
           {/* show page and sort */}
 
@@ -455,7 +378,7 @@ async function getDataSort(func){
             </div>
             <div>
               {/* Page content here */}
-              <label htmlFor="my-drawer-4" className="lg:hidden xl:hidden  drawer-button btn btn-primary btn-sm">Filter</label>
+              <label htmlFor="my-drawer-4" className="lg:hidden xl:hidden  drawer-button btn btn-primary btn-sm"><i className="fa-solid fa-filter"></i> Filter</label>
               <ul className="menu hidden md:hidden lg:menu-horizontal lg:flex xl:block xl:flex rounded-box gap-1">
                   {OrderBy && OrderBy.length > 0 ? (
                       OrderBy.map((item,i)=>(
@@ -476,7 +399,7 @@ async function getDataSort(func){
 
           <div className='flex justify-between  mx-6'>
             <div>
-              <button className=' hidden md:hidden lg:block xl:block btn btn-success btn-sm text-base-100' onClick={()=>document.getElementById('my_modal_4').showModal()} >Create New Product</button>
+              <button className=' hidden md:hidden lg:block xl:block btn btn-success btn-sm text-base-100' onClick={()=>showModalContent(555)} >Create New Product</button>
             </div>
 
             <div className="">
@@ -500,7 +423,7 @@ async function getDataSort(func){
 
                   <CARDPRODUCT 
                     key={i}
-                    id={product.id}
+                    id={product._id}
                     img={product.image}
                     title={product.title} 
                     subtitle = {product.price}
@@ -510,6 +433,7 @@ async function getDataSort(func){
                     action="Buy now"
                     link = {`/ProductDetail/${product._id}`}
                     tag = {product.typeShipping} 
+                    edit = {()=>showModalContent(product._id)}
                   />
 
               ))}
