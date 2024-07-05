@@ -137,7 +137,7 @@ const contentCreateProduct = (
       <ul className="menu w-56">
         <li>
           <details open>
-            <summary className='font-semibold'><i class="fa-solid fa-layer-group"></i> Category</summary>
+            <summary className='font-semibold'><i className="fa-solid fa-layer-group"></i> Category</summary>
             <ul>
               {/* <li onClick={ClearInput}><a> <input type="checkbox" className="checkbox checkbox-sm" /> All</a></li> */}
               {category && category.length > 0 ? (
@@ -152,7 +152,7 @@ const contentCreateProduct = (
         </li>
         <li>
           <details open>
-            <summary className='font-semibold'><i class="fa-solid fa-truck-fast"></i> Shipping</summary>
+            <summary className='font-semibold'><i className="fa-solid fa-truck-fast"></i> Shipping</summary>
             <ul>
               {typeShipping && typeShipping.length > 0 ? (
                 typeShipping.map((item,index)=>(
@@ -165,7 +165,7 @@ const contentCreateProduct = (
           </details>
         </li>
         <li>
-          <a className='font-semibold'><i class="fa-solid fa-star"></i> Rating</a>
+          <a className='font-semibold'><i className="fa-solid fa-star"></i> Rating</a>
           <div className="rating">
             <input hidden type="radio" name="rating-2" id="ratingDefault" className="mask mask-star-2 bg-orange-400 rating-check" defaultChecked />
             <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400 rating-check" id="1" onClick={getFilter} />
