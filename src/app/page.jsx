@@ -4,13 +4,9 @@ import CARDPRODUCT from './components/cardProduct'
 import CardProductSkeleton from './components/cardProductSkeleton'
 import Btncategory from './components/btnCategory'
 import Modal from './components/modal'
-import Alert from './components/Alert'
 import Paginate from './components/pagination'
 import { useEffect, useState,useContext } from 'react'
 import axios from 'axios';
-import { stringify } from 'postcss'
-import Link from 'next/link'
-import Image from 'next/image'
 import FormProduct from './components/formProduct'
 
 const fetchDatafromPage = async (page,perpage,filter,func) =>{

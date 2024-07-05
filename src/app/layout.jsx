@@ -14,6 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
     <Script
+     id="inline-script"
      src="https://kit.fontawesome.com/4a73777019.js" crossorigin="anonymous"
     >
     </Script>
