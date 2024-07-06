@@ -4,13 +4,13 @@ import Link from 'next/link'
 function nav() {
   return (
     <div>
-        <div className="navbar bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-base-100 ">
+        <div className="navbar bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-base-100 w-full">
             <div className="flex-1">
                 <Link href="/" className="btn btn-ghost text-xl">Home</Link>
             </div>
             <div className="flex-1 justify-start">
-            <div className="form-control w-full">
-                    <input type="text" placeholder="Search" className="input  rounded-full input-sm text-black" />
+                <div className="hidden md:block md:w-full lg:w-full xl:w-full form-control ">
+                        <input type="text" placeholder="Search" className="input rounded-full input-sm text-black" />
                 </div>
             </div>
             <div className="flex-none gap-2">

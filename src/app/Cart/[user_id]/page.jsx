@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useState , useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import CartItems from '@/app/components/cartItems'
 
 
 async function DeleteProductFromCart(id){
@@ -53,26 +54,7 @@ const Cartproduct = ({params}) => {
   
   }
 
-  const minusQuantity =(elements) =>{
 
-    console.log(elements);
-    let now =  document.getElementById(elements).value
-    if(parseInt(now) - 1 >0){
-      document.getElementById(elements).value = parseInt(now) - 1
-    }else{
-      document.getElementById(elements).value = 1
-
-    }
-
-    
-  }
-
-  const plusQuantity =(elements) =>{
-    console.log(elements);
-
-    let now =  document.getElementById(elements).value
-    document.getElementById(elements).value = parseInt(now) + 1
- }
 
   
 
@@ -84,7 +66,7 @@ const Cartproduct = ({params}) => {
   return (
     <>
     <div className="flex w-full bg-base-100 flex-col lg:flex-row ">
-      <div className="card  rounded-none grid flex-grow place-items-center w-full px-2">
+      <div className="card w-full">
               {/* <p className='font-semibold text-2xl subpixel-antialiased flex justify-start my-6 '>Shopping Carts</p> */}
                 { dataCarts && dataCarts.length > 0 ? (
                       dataCarts.map((item,i)=>(
@@ -92,52 +74,43 @@ const Cartproduct = ({params}) => {
                           {/* <p className='font-semibold text-md flex justify-end my-6'>{item.date}</p> */}
                           {item.products && item.products.length > 0 ? (
                             item.products.map((product,i)=>(
-                              <div key={i} className="">
-                                
-                                  <div className="card card-side bg-base-100 shadow-xl  place-items-center m-4 px-2">
-
-                                  <div className="">
-                                      <input type="checkbox" className="checkbox" />
-                                  </div>
-                                    <figure>
-                                    <Link href={`/ProductDetail/${product.productId}`}>
-                                    <div className="avatar flex-none w-36 xl:w-32 ">
-                                      <div className="rounded bg-base-200 p-2 m-2">
-                                        <img src={relatedtoProduct(product.productId).image} className='w-1/2' />
-                                      </div>
-                                    </div>
-                                    </Link>
-
-                                    </figure>
-                                    <div className="card-body">
-                                      <h2 className="card-title line-clamp-1">{relatedtoProduct(product.productId).title}</h2>
-
-                                      <span className="font-semibold ">
-                                        <p className='font-semibold text-xs text-slate-400 line-clamp-2'>{relatedtoProduct(product.productId).description}</p>
-                                      </span>
-                                      <div className="card-actions">
-                                        <div className='flex flex-col gap-2'>
-                                          <p className='font-semibold text-sm text-orange-500 text-xl'><i className="fa-solid fa-money-bill"></i> ${relatedtoProduct(product.productId).price} </p>
-                                          <p className='font-semibold text-sm text-slate-400 text-sm'><i className="fa-solid fa-truck-fast"></i> ${relatedtoProduct(product.productId).price} </p>
-
-                                      
-
-                                          <div className='flex gap-2 place-items-center'>
-                                            <p className='hidden md:block font-semibold text-sm text-sm'> Quantity : </p>
-                                            <button className='btn btn-neutral btn-xs' onClick={()=>minusQuantity(`quantity-${i}`)}><i className="fa-solid fa-minus"></i></button>
-                                            <input type="text" id={`quantity-${i}`} defaultValue={product.quantity} placeholder="Type here" className="input text-sm text-center w-16 max-w-xs bg-transparent focus:border-none" />
-                                            <button className='btn btn-neutral btn-xs' onClick={()=>plusQuantity(`quantity-${i}`)}><i className="fa-solid fa-plus"></i></button>
-                                            <div className='flex-grow justify-end'>
-                                              <button className='btn btn-error btn-xs text-base-100' onClick={()=>DeleteProductFromCart(product.productId)}><i className="fa-solid fa-trash-can"></i></button>
-                                            </div>
+                              <div key={i}>
+                                  {/* <div className="card p-2 bg-base-200 rounded-box m-2">
+                                    <div className="flex w-full  lg:flex-row">
+                                      <div className="w-32 md:w-40 lg:w-44 xl:w-48 bg-base-300 rounded-box grid flex-grow place-items-center p-1">
+                                        <div className="avatar">
+                                          <div className="p-1">
+                                            <Link href={`/ProductDetail/${product.productId}`}>
+                                                <img src={relatedtoProduct(product.productId).image} className='h-auto w-auto' />
+                                            </Link>
                                           </div>
-                                       
-
-                          
                                         </div>
                                       </div>
+                                      <div className="rounded-none grid  flex-grow  w-full p-1 ps-2">
+                                        <p className="text-sm font-semibold truncate line-clamp-1 w-100 mb-0">{relatedtoProduct(product.productId).title}</p>
+                                        <p className='font-semibold text-md'> ${relatedtoProduct(product.productId).price} </p>
+
+                                        <div className="flex place-items-center">
+                                          <button className='btn btn-neutral btn-xs' onClick={()=>minusQuantity(`quantity-${i}`)}><i className="fa-solid fa-minus"></i></button>
+                                          <input type="text" id={`quantity-${i}`} defaultValue={product.quantity} placeholder="Type here" className="input font-semibold text-xs text-center w-12 bg-transparent border-none focus:outline-none" />
+                                          <button className='btn btn-neutral btn-xs' onClick={()=>plusQuantity(`quantity-${i}`)}><i className="fa-solid fa-plus"></i></button>
+                                        </div>
+
+                                      </div>
+                                      <div className="rounded-none grid  flex-grow place-items-center w-max-px p-1">
+                                          <input type="checkbox" defaultChecked className="checkbox checkbox-sm" />
+                                      </div>
+
                                     </div>
-                                  </div>
+                                  </div> */}
+                                  <CartItems
+                                  productId = {product.productId}
+                                  image = {relatedtoProduct(product.productId).image}
+                                  title = {relatedtoProduct(product.productId).title}
+                                  price = {relatedtoProduct(product.productId).price}
+                                  index={i}
+                                  quatity = {product.quantity}
+                                  />
                               </div>
                             ))
                           ) : (
@@ -153,25 +126,16 @@ const Cartproduct = ({params}) => {
 
                 )}
 
+                <div className='flex justify-between mt-4'>
+                  <p className='font-semibold text-md'>Items ({quatity ?? quantityitem}) :</p>
+                  <p className='font-semibold text-md'>Total : {subTotal}</p>
+                </div>
+                  <div className="divider"></div>
+
+
               <div className='flex-col xl:flex xl:justify-between mt-2'>
                 <div className='flex justify-center mb-2'>
-                   <a href="/" className="btn btn-outline rounded-full mt-6 btn-wide font-semibold">Back To Shopping</a>
-                </div>
-                <div className='grid grid-cols-2 '>
-                  <div>
-                    <p className='flex font-semibold text-md me-6'>Quantity :</p>
-                    <p className='flex font-semibold text-md me-6'>Subtotal :</p>
-                    <p className='flex font-semibold text-md me-6 mb-6'>Shipping :</p>
-                    <p className='flex font-semibold text-md me-6'>Total :</p>
-                  </div>
-
-                  <div>
-                    <p className='flex justify-end font-semibold text-md'>{quatity ?? quantityitem}</p>
-                    <p className='flex justify-end font-semibold text-md'>{subTotal}</p>
-                    <p className='flex justify-end font-semibold text-md mb-6'>Shipping</p>
-                    <p className='flex justify-end font-semibold text-md'>Total</p>
-                  </div>
-
+                   <a href="/" className="btn btn-outline rounded-full  font-semibold">Back To Shopping</a>
                 </div>
               </div>
       </div>
@@ -248,14 +212,10 @@ const Cartproduct = ({params}) => {
                 </div>
               </div> */}
 
-              <button className="btn btn-info rounded-full my-6 btn-wide">Checkout</button>
+              <button className="btn btn-info rounded-full my-6">Checkout</button>
       
       </div>
     </div>
-
-
-
-
     </>
 
   )
