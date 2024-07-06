@@ -126,7 +126,7 @@ const Cartproduct = ({params}) => {
 
                 )}
 
-                <div className='flex justify-between mt-4'>
+                <div className='flex justify-between mt-4 px-2'>
                   <p className='font-semibold text-md'>Items ({quatity ?? quantityitem}) :</p>
                   <p className='font-semibold text-md'>Total : {subTotal}</p>
                 </div>

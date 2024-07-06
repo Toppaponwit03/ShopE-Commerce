@@ -41,15 +41,15 @@ function cardProduct( {id,link,img ,title ,subtitle , description , action , rat
                 {tag ? (
                   <span className="ribbon">{tag}</span>
                 ) : (<></>)}
-                <Image src={img}  
-                    width={800}
-                    height={800} 
+                <Image className='w-full' src={img}  
+                    width={100}
+                    height={100} 
                     alt={title}
                     priority
                 />
                 </figure>
-              <div className="card-body min-h-36 max-h-52 ">
-                <h6 className="card-title text-sm truncate">{title} </h6>
+              <div className=" min-h-24 max-h-24 bg-base-200 p-1">
+                <h6 className="card-title text-sm truncate line-clamp-1">{title} </h6>
                 <div className='flex gap-1'>
                 <p className="text-sm font-semibold text-error">${subtitle}</p>
                 <p className="text-sm font-semibold text-neutral-400 line-through">${subtitle *2}</p>

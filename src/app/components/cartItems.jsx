@@ -1,16 +1,17 @@
 import React from 'react'
 import AddItems from './addItems'
 import Link from 'next/link'
+import Image from 'next/image'
 
 function cartItems({productId,image,title,price,index,quatity}) {
   return (
     <div className="card p-2 bg-base-200 rounded-box m-2">
     <div className="flex w-full  lg:flex-row">
-      <div className="w-32 md:w-40 lg:w-44 xl:w-48 bg-base-300 rounded-box grid flex-grow place-items-center p-1">
-        <div className="avatar">
-          <div className="p-1">
+      <div className="w-32  md:w-40 lg:w-44 xl:w-48 bg-base-300 rounded-box grid flex-grow place-items-center p-1">
+        <div className="">
+          <div className="rounded p-1">
             <Link href={`/ProductDetail/${productId}`}>
-                <img src={image} className='h-auto w-auto' />
+                <Image src={image} className=' w-full' width={100} height={100}/>
             </Link>
           </div>
         </div>

@@ -1,39 +1,53 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 function nav() {
   return (
     <div>
         <div className="navbar bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-base-100 w-full">
-            <div className="flex-1">
-                <Link href="/" className="btn btn-ghost text-xl">Home</Link>
+            <div className="flex">
+                <Link href="/" className="ps-2 ">
+                    <Image src="/Icon/shops.png" className='' width={35} height={35}/>
+                </Link>
+                <p class="font-semibold nowrap mx-10">E-Commerce</p>
             </div>
             <div className="flex-1 justify-start">
                 <div className="hidden md:block md:w-full lg:w-full xl:w-full form-control ">
-                        <input type="text" placeholder="Search" className="input rounded-full input-sm text-black" />
+                    <input type="text" placeholder="Search" className="input rounded-full input-sm w-full text-black" />
                 </div>
             </div>
-            <div className="flex-none gap-2">
+            <div className="flex-none gap-1">
 
-
-            <div className="dropdown dropdown-end ">
+            <div className=" md:hidden lg:hidden xl:hidden dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-                <div className="indicator">
-                    <i className="fa-solid fa-cart-shopping text-xl"></i>
-                    <span className="badge badge-sm badge-error text-base-100 indicator-item"><div id="cart" className="cart" data-totalitems="0">
-                    </div></span>
-
-
-                </div>
-                </div>
-                <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
-                <div className="card-body">
-                    <span className="font-bold text-lg">8 Items</span>
-                    <span className="text-info">Subtotal: $999</span>
-                    <div className="card-actions">
-                        <Link href={`/Cart/${2}`} className="btn btn-primary btn-block">View cart</Link>
+                    <div className="indicator">
+                        <i class="fa-solid fa-magnifying-glass text-xl"></i>
                     </div>
                 </div>
+                <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-100 bg-base-100 shadow">
+                    <div className="card-body">
+                        <input type="text" placeholder="Search" className="input rounded-full input-sm text-black" />
+                    </div>
+                </div>
+            </div>
+
+            <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+                    <div className="indicator">
+                        <i className="fa-solid fa-cart-shopping text-xl"></i>
+                        <span className="badge badge-sm badge-error text-base-100 indicator-item"><div id="cart" className="cart" data-totalitems="0">
+                        </div></span>
+                    </div>
+                </div>
+                <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
+                    <div className="card-body">
+                        <span className="font-bold text-lg">8 Items</span>
+                        <span className="text-info">Subtotal: $999</span>
+                        <div className="card-actions">
+                            <Link href={`/Cart/${2}`} className="btn btn-primary btn-block">View cart</Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         {/* menu category */}
