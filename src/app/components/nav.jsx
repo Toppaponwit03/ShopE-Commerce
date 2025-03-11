@@ -10,7 +10,7 @@ function nav() {
                 <Link href="/" className="ps-2 ">
                     <Image src="/Icon/shops.png" className='' width={35} height={35}/>
                 </Link>
-                <p class="font-semibold nowrap mx-10">E-Commerce</p>
+                <p className="font-semibold nowrap mx-10">E-Commerce</p>
             </div>
             <div className="flex-1 justify-start">
                 <div className="hidden md:block md:w-full lg:w-full xl:w-full form-control ">
@@ -22,7 +22,7 @@ function nav() {
             <div className=" md:hidden lg:hidden xl:hidden dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                     <div className="indicator">
-                        <i class="fa-solid fa-magnifying-glass text-xl"></i>
+                        <i className="fa-solid fa-magnifying-glass text-xl"></i>
                     </div>
                 </div>
                 <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-100 bg-base-100 shadow">
@@ -78,7 +78,7 @@ function nav() {
             <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                    <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    <img alt="Tailwind CSS Navbar component" src="https://i.pinimg.com/736x/1d/53/56/1d535625b296b6e79409c7be1f5b21e1.jpg" />
                 </div>
                 </div>
                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

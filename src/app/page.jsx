@@ -374,7 +374,7 @@ async function getDataSort(func){
             </div>
             <div>
               {/* Page content here */}
-              <label htmlFor="my-drawer-4" className="lg:hidden xl:hidden  drawer-button btn btn-neutral btn-sm btn-circle text-base-100"><i class="fa-solid fa-bars"></i> </label>
+              <label htmlFor="my-drawer-4" className="lg:hidden xl:hidden  drawer-button btn btn-neutral btn-sm btn-circle text-base-100"><i className="fa-solid fa-bars"></i> </label>
               <ul className="menu hidden md:hidden lg:menu-horizontal lg:flex xl:block xl:flex rounded-box gap-1">
                   {OrderBy && OrderBy.length > 0 ? (
                       OrderBy.map((item,i)=>(

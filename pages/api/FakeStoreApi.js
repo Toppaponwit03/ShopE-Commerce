@@ -145,8 +145,9 @@ export default async function handler(req,res){
                 const {func,id} = await req.query
                 if(func == 'addProduct'){
                     const data = req.body
+                    
                    await connectMongoDB()
-                   await Products.create(data)
+                   await Products.create(data.formData)
                    return res.status(200).json({data : data ,message : 'success' , status : 200})
                 // return NextResponse.json({ message: "Post created"}, { status: 201 })
                 }
